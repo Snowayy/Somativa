@@ -1,10 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 
 public class Vendas extends JFrame {
@@ -34,10 +31,12 @@ public class Vendas extends JFrame {
 
                     if(separador[0].equals(produtoTextField.getText())){
 
-                        int desposable = Integer.parseInt(separador[1]);
+                        Integer desposable = Integer.parseInt(separador[1]) - 1;
                         try {
                             FileWriter escritor = new FileWriter("produtos.txt",true);
-                            escritor.write(desposable);//corrigir isso
+                            //escritor.write(desposable.toString());
+                            linha = separador[1].replace(separador[1], desposable.toString());
+                            escritor.write(linha);
                             escritor.close();
                         } catch (IOException p) {
                             throw new RuntimeException(p);
@@ -76,7 +75,9 @@ public class Vendas extends JFrame {
 
                 }else if(verificarProduto()){
 
-
+                    clienteTextField.setText("");
+                    cpfTextField.setText("");
+                    produtoTextField.setText("");
 
                 }else {
 
